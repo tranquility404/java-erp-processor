@@ -1,5 +1,0 @@
-# Created at 2024-09-01T17:38:32.688
-Boot Manifest-JAR contains absolute paths in classpath 'D:\Work Space\Console Programs\A_Projects\Axis Erp\backend-app\java-erp-scrapper\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-
