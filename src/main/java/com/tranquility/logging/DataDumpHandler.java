@@ -1,8 +1,8 @@
 package com.tranquility.logging;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tranquility.helpers.Utils;
-import com.tranquility.model.Cookie;
+import com.tranquility.utils.Utils;
+import com.tranquility.models.Cookie;
 
 import java.io.*;
 import java.nio.file.Files;

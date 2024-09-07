@@ -2,8 +2,7 @@ package com.tranquility;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tranquility.scrappers.ScrapeHelper;
-import org.jsoup.Jsoup;
+import com.tranquility.utils.ScrapeHelper;
 
 import java.io.IOException;
 import java.nio.file.Files;
