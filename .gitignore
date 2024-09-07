@@ -5,8 +5,7 @@ HELP.md
 !.mvn/wrapper/maven-wrapper.jar
 
 **/src/test/*
-**/src/main/resources/application.yml
-**/src/main/resources/application-test.yml
+**/src/main/resources/*.yml
 .env
 
 ### IntelliJ IDEA ###
