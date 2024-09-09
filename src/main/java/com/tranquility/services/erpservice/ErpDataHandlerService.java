@@ -13,10 +13,7 @@ import com.tranquility.utils.Utils;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 import java.net.URI;
@@ -26,7 +23,6 @@ import java.net.http.HttpResponse;
 import java.util.*;
 
 @Service
-@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ErpDataHandlerService {
 
     private final int CAPTCHA_RETRY_LIMIT = 10;
@@ -61,8 +57,11 @@ public class ErpDataHandlerService {
     @Autowired
     private UserService userService;
 
-    public ErpDataHandlerService(@Value("${flask.server.url}") String flaskServerUrl) {
+    @Autowired
+    public ErpDataHandlerService(@Value("${flask.server.url}") String flaskServerUrl/*, @Value("${spring.data.mongodb.uri}") String mongo*/) {
         this.flaskServerUrl = flaskServerUrl;
+//        System.out.println("Flask-Server: " + flaskServerUrl);
+//        System.out.println("Mongo-Db: " + mongo);
 //            this.dataDumpHandler = new DataDumpHandler(user.getUsername(), pass);
     }
 

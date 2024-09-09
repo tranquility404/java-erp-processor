@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+//@CrossOrigin
 @RestController
 @RequestMapping("/public")
 public class PublicController {

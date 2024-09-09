@@ -1,5 +1,6 @@
 package com.tranquility.controllers;
 
+import com.tranquility.controllers.endpoints.ErpEndpoints;
 import com.tranquility.data.entities.User;
 import com.tranquility.models.Circular;
 import com.tranquility.models.Classmate;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,9 +21,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+//@CrossOrigin
 @RestController
 @RequestMapping("/erp")
-public class ErpController {
+public class ErpController implements ErpEndpoints {
 
     @Autowired
     private UserService userService;

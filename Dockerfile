@@ -6,4 +6,4 @@ COPY target/java-erp-scrapper.jar /backend-app/java-erp-scrapper.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/backend-app/java-erp-scrapper.jar"]
+ENTRYPOINT ["java", "-jar", "/backend-app/java-erp-scrapper.jar", "--spring.profiles.active=prod"]
