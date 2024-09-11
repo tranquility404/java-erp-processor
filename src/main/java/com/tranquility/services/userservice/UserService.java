@@ -14,7 +14,7 @@ public class UserService {
     private UserRepo userRepo;
 
     public void saveUser(User newUser) {
-        User oldUser = userRepo.findByUsername(newUser.getUsername());
+        User oldUser = userRepo.findByUsername(newUser.getUsername().toLowerCase());
         if (oldUser != null) {
             oldUser.setUsername(newUser.getUsername());
             oldUser.setPassword(newUser.getPassword());

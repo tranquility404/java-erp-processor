@@ -3,6 +3,7 @@ package com.tranquility.services;
 import com.tranquility.data.entities.CookieResponse;
 import com.tranquility.data.entities.ErpData;
 import com.tranquility.data.entities.ErpUser;
+import com.tranquility.data.entities.User;
 import com.tranquility.models.Cookie;
 import com.tranquility.data.repositories.CookieRepo;
 import com.tranquility.data.repositories.ErpDataRepo;
@@ -71,6 +72,18 @@ public class MongoRepoService {
 //        }
 
 //        return null;
+    }
+
+    public void updateStudentName(String username, String name) {
+        Query query = new Query(Criteria.where("username").is(username));
+        Update update = new Update().set("name", name);
+        mongoTemplate.updateFirst(query, update, User.class);
+    }
+
+    public void updateInstituteId(String username, int id) {
+        Query query = new Query(Criteria.where("username").is(username));
+        Update update = new Update().set("institute", id);
+        mongoTemplate.updateFirst(query, update, User.class);
     }
 
     public void updateSessionCookiesData(String id, List<Cookie> newSessionCookiesData) {

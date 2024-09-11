@@ -36,6 +36,35 @@ public class ErpScrapedData {
         public static String[] dashboardKeys = new String[]{"astro20=", "astro26=", "astro27="};
     }
 
+    private static class Institutes {
+        public static final String AxisInstituteOfTechnologyAndManagement = "ab0d4edc-07f0-45de-aac9-9917b3ea16ef";
+        public static final String AxisInstituteOfFashionAndTechnology = "55520610-2a9f-4d9a-9b7f-8427b7e6402e";
+        public static final String AxisInstituteOfArchitecture = "59b3b886-f773-452b-aef1-33abcb1e8515";
+        public static final String AxisBusinessSchool = "2ffa293e-75b3-4520-887f-3fd02d0cd676";
+        public static final String AxisInstituteOfPlanningAndManagement = "b2e19fe8-1bb5-4a02-8953-9e0e42ae850f";
+        public static final String AxisInstituteOfHigherEducation = "56c3f8c3-bc12-4390-9a32-25a416021935";
+        public static final String AxisInstituteOfPharmacy = "046c523f-a8a6-4a3b-9a19-0dc7de8808bf";
+        public static final String AxisInstituteOfDiplomaEngineering = "75a7451f-34b4-4ec4-b88c-20d49b746d6a";
+    }
+
+    public String getLoginPageUrl(int institute) {
+        return "index.aspx?openFor=Students&institute=" + getInstitute(institute);
+    }
+
+    private String getInstitute(int institute) {
+        return switch (institute) {
+            case 1 -> Institutes.AxisInstituteOfTechnologyAndManagement;
+            case 2 -> Institutes.AxisInstituteOfFashionAndTechnology;
+            case 3 -> Institutes.AxisInstituteOfArchitecture;
+            case 4 -> Institutes.AxisBusinessSchool;
+            case 5 -> Institutes.AxisInstituteOfPlanningAndManagement;
+            case 6 -> Institutes.AxisInstituteOfHigherEducation;
+            case 7 -> Institutes.AxisInstituteOfPharmacy;
+            case 8 -> Institutes.AxisInstituteOfDiplomaEngineering;
+            default -> null;
+        };
+    }
+
     public String getCookiesForCaptcha() {
         return cookies.getSessionCookiesData().stream().map(Cookie::getCookie).collect(Collectors.joining("; "));
     }
@@ -53,11 +82,11 @@ public class ErpScrapedData {
         return "{\"captcha-img-byte-data\":\"" + captchaImgByteData + "\"}";
     }
 
-    public String getBodyForLogin(String username, String password) {
+    public String getBodyForLogin(String username, String password, int institute) {
         return "{\"userId\":\"" + username +
                 "\",\"passwds\":\"" + password +
                 "\",\"vcaptcha\":\"" + captchaTxt +
-                "\",\"openFor\":\"Students\",\"institute\":\"ab0d4edc-07f0-45de-aac9-9917b3ea16ef\"}";
+                "\",\"openFor\":\"Students\",\"institute\":\"" + getInstitute(institute) + "\"}";
     }
 
     public String[] getHeaders(String cookies, String referer, String accept) {

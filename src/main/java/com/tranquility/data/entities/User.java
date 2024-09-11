@@ -12,5 +12,7 @@ public class User {
     private ObjectId id;
     private String username;
     private String password;
+    private String name;
+    private int institute;
     private String[] roles;
 }

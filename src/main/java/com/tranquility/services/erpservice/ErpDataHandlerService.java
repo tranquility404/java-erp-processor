@@ -1,5 +1,6 @@
 package com.tranquility.services.erpservice;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tranquility.data.entities.CookieResponse;
 import com.tranquility.data.entities.ErpData;
@@ -32,7 +33,7 @@ public class ErpDataHandlerService {
     private User user;
 
     private final String HOST_URL = "https://erp.axiscolleges.net/";
-    private final String MAIN_URL = "index.aspx?openFor=Students&institute=ab0d4edc-07f0-45de-aac9-9917b3ea16ef";
+
     private final String CAPTCHA_URL = "captchaHandler.ashx?query=";
     private final String LOGIN_URL = "json/UserServiceWS.asmx/AuthenticateUser";
     private final String CHOOSE_ROLE_URL = "chooseURole.aspx/btnNext_Click";
@@ -167,12 +168,24 @@ public class ErpDataHandlerService {
         if (!list.isEmpty()) {
             Map<String, Object> studentData = (Map<String, Object>) list.get(0);
             String jsonString = new ObjectMapper().writeValueAsString(studentData);
+            saveName(jsonString);
             mongoRepoService.updateStudentData(user.getUsername(), jsonString);
             return studentData;
         }
 
         System.out.println("End of Get-Student-Data");
         return null;
+    }
+
+    private void saveName(String jsonString) {
+        try {
+            Map<String, String> map = new ObjectMapper().readValue(jsonString, new TypeReference<>() {});
+            String name = map.get("studentFullName_P");
+            mongoRepoService.updateStudentName(user.getUsername(), name);
+        } catch (Exception e) {
+            System.out.println("Error occurred while extracting Student Name: ");
+            System.out.println(e.toString());
+        }
     }
 
 
@@ -272,10 +285,10 @@ public class ErpDataHandlerService {
     public void getLoginCookies() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(HOST_URL + LOGIN_URL))
-                .POST(HttpRequest.BodyPublishers.ofString(erpScrapedData.getBodyForLogin(user.getUsername(), user.getPassword())))
-                .headers(erpScrapedData.getHeaders(erpScrapedData.getCookiesForLogin(), HOST_URL + MAIN_URL))
+                .POST(HttpRequest.BodyPublishers.ofString(erpScrapedData.getBodyForLogin(user.getUsername(), user.getPassword(), user.getInstitute())))
+                .headers(erpScrapedData.getHeaders(erpScrapedData.getCookiesForLogin(), HOST_URL + erpScrapedData.getLoginPageUrl(user.getInstitute())))
                 .build();
-        System.out.println(erpScrapedData.getBodyForLogin(user.getUsername(), user.getPassword()));
+        System.out.println(erpScrapedData.getBodyForLogin(user.getUsername(), user.getPassword(), user.getInstitute()));
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println("login-cookies-status: " + response.statusCode());
@@ -364,7 +377,7 @@ public class ErpDataHandlerService {
 
     public void getSessionCookies() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(HOST_URL + MAIN_URL))
+                .uri(URI.create(HOST_URL + erpScrapedData.getLoginPageUrl(user.getInstitute())))
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
