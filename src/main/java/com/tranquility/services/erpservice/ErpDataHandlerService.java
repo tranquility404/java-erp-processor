@@ -312,7 +312,7 @@ public class ErpDataHandlerService {
 
     public boolean readCaptcha() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(flaskServerUrl + "read-captcha"))
+                .uri(URI.create(flaskServerUrl + "/read-captcha"))
                 .POST(HttpRequest.BodyPublishers.ofString(erpScrapedData.getBodyForReadCaptcha()))
                 .header("content-type", "application/json")
                 .build();
