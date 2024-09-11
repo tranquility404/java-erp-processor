@@ -14,10 +14,12 @@ public class UserService {
     private UserRepo userRepo;
 
     public void saveUser(User newUser) {
-        User oldUser = userRepo.findByUsername(newUser.getUsername().toLowerCase());
+        newUser.setUsername(newUser.getUsername().toLowerCase());
+        User oldUser = userRepo.findByUsername(newUser.getUsername());
         if (oldUser != null) {
             oldUser.setUsername(newUser.getUsername());
             oldUser.setPassword(newUser.getPassword());
+            oldUser.setInstitute(newUser.getInstitute());
             userRepo.save(oldUser);
         } else {
             newUser.setRoles(new String[]{"USER"});
