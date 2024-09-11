@@ -39,6 +39,7 @@ public class PublicController {
             handler.loginIfExpired();
 
             if (handler.isLoginCookiesSecured()) {
+                System.out.println("User: " + user);
                 userService.saveUser(user);
                 map.put("message", "Login Successful");
             } else {
