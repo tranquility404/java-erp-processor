@@ -24,6 +24,7 @@ import java.net.http.HttpResponse;
 import java.util.*;
 
 @Service
+//@Slf4j
 public class ErpDataHandlerService {
 
     private final int CAPTCHA_RETRY_LIMIT = 10;
@@ -49,8 +50,8 @@ public class ErpDataHandlerService {
 
     @Getter
     private ErpScrapedData erpScrapedData;
-    private ErpDataUtils erpDataUtils = new ErpDataUtils(erpScrapedData);
-    private HttpClient client = HttpClient.newHttpClient();
+    private ErpDataUtils erpDataUtils;
+    private final HttpClient client = HttpClient.newHttpClient();
 //    private DataDumpHandler dataDumpHandler;
 
     @Autowired
@@ -69,6 +70,7 @@ public class ErpDataHandlerService {
     public void initialize(User user) {
         this.user = user;
         erpScrapedData = new ErpScrapedData(user.getUsername());
+        erpDataUtils = new ErpDataUtils(erpScrapedData);
     }
 
     public List<Map<String, String>> getAcademicCalendar() throws IOException, InterruptedException {
