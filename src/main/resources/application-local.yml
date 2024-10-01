@@ -1,0 +1,25 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: erpData
+
+flask:
+  server:
+    url: https://py-processor-production.up.railway.app
+#    url: http://127.0.0.1:5000
+
+cors:
+  allowed:
+    origins: http://localhost:5173
+
+#server:
+#  servlet:
+#    session:
+#      cookie:
+#        name: SESSIONID
+#        path: /
+#        http-only: true
+#        secure: false
+#        same-site: Lax
+#        timeout: 30m

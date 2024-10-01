@@ -1,11 +1,9 @@
 HELP.md
 **/target/*
-!**/target/**/*.jar
 
 !.mvn/wrapper/maven-wrapper.jar
 
 **/src/test/*
-**/src/main/resources/*.yml
 .env
 
 ### IntelliJ IDEA ###

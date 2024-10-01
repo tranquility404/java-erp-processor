@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_DB_URI}
+      database: erpData
+
+flask:
+  server:
+    url: ${FLASK_SERVER_URL}
+
+cors:
+  allowed:
+    origins: ${ALLOWED_ORIGINS}
