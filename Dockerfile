@@ -1,6 +1,6 @@
 # Use Maven for the build stage
 FROM openjdk:17-jdk-slim AS build
-
+RUN apt-get update && apt-get install -y maven
 # Set the working directory in the container
 WORKDIR /app
 
