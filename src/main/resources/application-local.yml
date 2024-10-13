@@ -1,13 +1,13 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017
+      uri: mongodb+srv://deepak2004verma:Y2hUdoHXY2QPxxB9@cluster0.moxtp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       database: erpData
 
 flask:
   server:
-    url: https://py-processor-production.up.railway.app
-#    url: http://127.0.0.1:5000
+    url: http://127.0.0.1:5000
+#    url: https://py-processor-production.up.railway.app
 
 cors:
   allowed:

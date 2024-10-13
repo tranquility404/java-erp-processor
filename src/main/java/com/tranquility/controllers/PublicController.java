@@ -18,9 +18,9 @@ import java.util.Map;
 @RequestMapping("/public")
 public class PublicController {
 
-    @GetMapping("/health-check")
-    public String healthCheck() {
-        return "OK";
+    @GetMapping
+    public ResponseEntity<?> healthcheck() {
+        return ResponseEntity.status(HttpStatus.OK).body("Working...");
     }
 
     @Autowired

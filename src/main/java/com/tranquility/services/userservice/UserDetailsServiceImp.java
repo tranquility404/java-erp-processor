@@ -20,7 +20,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
+        User user = userRepo.findByUsername(username.toLowerCase());
+//        System.out.println("auth running: " + user + "\n" + (user!=null));
 
         if (user != null) {
             UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
@@ -32,4 +33,6 @@ public class UserDetailsServiceImp implements UserDetailsService {
         }
         throw  new UsernameNotFoundException("User not found with username: " + username);
     }
+
+
 }

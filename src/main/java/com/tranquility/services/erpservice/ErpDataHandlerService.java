@@ -203,6 +203,7 @@ public class ErpDataHandlerService {
             erpScrapedData.setErpUser(erpUser);
             isLoginCookiesSecured = true;
         } else {
+            System.out.println("Cookies expired: " + expiry);
             initiateLogin();
         }
     }

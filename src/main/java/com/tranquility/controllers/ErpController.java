@@ -33,16 +33,33 @@ public class ErpController implements ErpEndpoints {
 
     private void initHandler() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        String username = authentication.getName().toLowerCase();
 
         User user = userService.findByUserName(username);
+        System.out.println(user);
         handler.initialize(user);
     }
 
+    @GetMapping
+    public ResponseEntity<?> healthcheck() {
+        return ResponseEntity.status(HttpStatus.OK).body("Working...");
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<?> healthcheck2() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        User user = userService.findByUserName(username);
+        System.out.println("health: " + user);
+        return ResponseEntity.status(HttpStatus.OK).body("Working 2...");
+    }
+
     @GetMapping("/get-student-data")
-    public ResponseEntity<Map<String, Object>> studentData() {
+    public ResponseEntity<?> studentData() {
         try {
             initHandler();
+//            return ResponseEntity.ok().body("User retrieval...");
             handler.loginIfExpired();
             return ResponseEntity.ok(handler.getStudentData());
         } catch (IOException | InterruptedException e) {

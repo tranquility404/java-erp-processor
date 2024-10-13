@@ -17,6 +17,11 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @GetMapping
+    public ResponseEntity<?> healthcheck() {
+        return ResponseEntity.status(HttpStatus.OK).body("Working...");
+    }
+
     @PostMapping("/create-user")
     public void createUser(@RequestBody User user) {
         userService.saveUser(user);
